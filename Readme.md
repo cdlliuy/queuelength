@@ -50,6 +50,11 @@ cf logs queuelength | grep "Current queue length"
 ```
 for i in {1..1000}; do curl "http://queuelength.<domain>/work?delay=5s"; done
 ```
+OR, if you have `vegeta` installed, you can kick off the workload with vegeta with a fine-gained control:
+```
+echo "GET http://queuelength.<domain>/work?delay=2s" | vegeta attack -duration=1200s -rate=3 | tee result.bin | vegeta report
+```
+
 
 * Retrieve autoscaler metrics to verify the custom metric reporting
 ```
