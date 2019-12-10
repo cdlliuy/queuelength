@@ -37,7 +37,7 @@ cf create-autoscaling-credential queuelength --output queuelength.json
 * Create an user-provided-service for this credential and bind the service to the application.
 ```
 cf create-user-provided-service autoscaler-metric-service -p queuelength.json
-cf bind-service queuelengthtest autoscaler-metric-service
+cf bind-service queuelength autoscaler-metric-service
 ```
 Note: the service name must have a prefix `autoscaler` since we will search for service crendential name with theis designed prefix
 
@@ -60,7 +60,7 @@ echo "GET http://queuelength.<domain>/work?delay=2s" | vegeta attack -duration=1
 ```
 >>> cf asm queuelength queuelength
 
-Retrieving aggregated queuelength metrics for app queuelengthtest...
+Retrieving aggregated queuelength metrics for app queuelength...
 Metrics Name     	Value     	Timestamp
 queuelength      	173       	2019-12-09T13:56:41+08:00
 queuelength      	156       	2019-12-09T13:56:00+08:00
@@ -70,7 +70,7 @@ queuelength      	139       	2019-12-09T13:55:20+08:00
 * Retrieve autoscaler history to verify the scaling actions
 ```
 >>> cf ash queuelength
-Retrieving scaling event history for app queuelengthtest...
+Retrieving scaling event history for app queuelength...
 Scaling Type     	Status        	Instance Changes     	Time                          	Action                                                      	Error
 dynamic          	succeeded     	1->2                 	2019-12-09T13:56:59+08:00     	+1 instance(s) because queuelength >= 20 for 60 seconds
 ```
